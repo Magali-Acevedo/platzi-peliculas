@@ -114,7 +114,7 @@ function renderGenres(genres, container){
   });
 }
 /* Menu desplegable */
-const menuControlador = document.querySelector(".menu-controlador");
+/*const menuControlador = document.querySelector(".menu-controlador");
 const menuDesplegable = document.querySelector(".nav-menu");
 
 menuControlador.addEventListener("click", menuToggle);
@@ -128,7 +128,7 @@ function menuToggle() {
     menuDesplegable.classList.remove("inactivo");
   }
 }
-
+*/
 /*Llamado de peliculas tendencia del dia*/
 
 async function getTrendingMoviesPreview() {
