@@ -5,7 +5,7 @@ const api = axios.create({
     "Content-Type": "application/json;charset=utf-8",
   },
   params: {
-    api_key: API_KEY,
+    api_key: "2e881487d806686e974db193b2379e05",
   },
 });
 
