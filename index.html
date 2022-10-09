@@ -4,18 +4,217 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Concert+One&family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./src/styles.css">
-    <script src="./src/vars.js"></script>
-    <script src="./src/main.js"></script>
+    <link rel="stylesheet" href="./src/vars.css">
     <title>MOVIE SITE</title>
 </head>
 <body>
-    <main>
+    <header class="header nodo">
 
-        <h1>
-            HOLA
-        </h1>
-    </main>
+        <nav class="nav">
+            <figure class="nav-figure">
+               <img src="https://images.creativemarket.com/0.1.0/ps/7414066/1820/1214/m1/fpnw/wm1/logo-design-for-movie-production-company-01-.jpg?1575502358&s=c37b3e6a8863b415070b669f6c8a457c" alt="">
+            </figure>
+
+            <form class="search">
+                <input type="search" class="input-search" placeholder="Buscar..." >
+                <button class="btn-search">Go!</button>
+            </form>
+
+            <!-- <ul class="nav-list">
+                <li><a href="#home">HOME</a></li>
+                <li class="menu-controlador">MI CUENTA ▼</li>
+            </ul> -->
+
+        </nav>
+        <!-- <div class="nav-menu inactivo">
+            <ul>
+                <li><a href="">Mis favoritos</a></li>
+            </ul>
+            <ul>
+                <li><a href="">Cerrar sesión</a></li>
+            </ul>
+
+        </div> -->
+    </header>
+
+    <section class="container-all nodo">
+
+        <input type="radio" id="1" name="image-slide" hidden/>
+        <input type="radio" id="2" name="image-slide" hidden/>
+        <input type="radio" id="3" name="image-slide" hidden/>
+
+        <div class="slide">
+
+            <!-- <div class="item-slide">
+                <img src="https://www.nationalgeographic.com.es/medio/2018/02/27/playa-de-isuntza-lekeitio__1280x720.jpg">
+                <div class="item-slide--description">
+                    <div>
+                        <h2>TITULO</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Error dolor aliquid modi, commodi maiores accusamus nesciunt animi ex, optio sequi sint quisquam blanditiis iste esse incidunt veniam enim ullam velit!</p>
+                    </div>
+                    <div>
+                        <a class="btn-ver" href="">VER</a>
+                    </div>
+                    
+                </div>
+
+            </div>
+
+            <div class="item-slide">
+                <img src="https://astelus.com/wp-content/viajes/Lago-Moraine-Parque-Nacional-Banff-Alberta-Canada.jpg">
+            </div>
+
+            <div class="item-slide">
+                <img src="https://astelus.com/wp-content/viajes/Lago-Moraine-Parque-Nacional-Banff-Alberta-Canada.jpg">
+            </div> -->
+
+        </div>
+
+        <div class="pagination">
+           
+            <label class="pagination-item" for="1">
+                <img class="img-slide--one" >
+ 
+            </label>
+            
+            <label class="pagination-item" for="2">
+                <img class="img-slide--two" >
+            </label>
+            
+            <label class="pagination-item" for="3">
+                <img class="img-slide--three" >
+            </label>
+            
+        </div>
+        
+    </section>
+
+    <section class="section-generos nodo">
+        <ul class="section-generos--ul">
+            <li><a href="">TERROR</a></li>
+            <li><a href="">CIENCIA FICCIÓN</a></li>
+            <li><a href="">DOCUMENTAL</a></li>
+            <li><a href="">COMEDIA</a></li>
+            <li><a href="">HUMOR</a></li>
+            <li><a href="">INFANTIL</a></li>
+        </ul>
+    </section>
+    <section class="section-peliculas tendencia nodo">
+        <h2 class="section-peliculas--title">TENDENCIAS</h2>
+        <article class="peliculas-card">
+            <!-- <figure class="pelicula-card--containerImg">
+                <img class="img-pelicula" src="" alt="Pelicula">
+               
+            </figure>
+            <figure class="pelicula-card--containerImg">
+                <img class="img-pelicula" src="" alt="Pelicula">
+            </figure>
+            <figure class="pelicula-card--containerImg">
+                <img class="img-pelicula" src="" alt="Pelicula">
+            </figure>
+            <figure class="pelicula-card--containerImg">
+                <img class="img-pelicula" src="" alt="Pelicula">
+            </figure>
+            <figure class="pelicula-card--containerImg">
+                <img class="img-pelicula" src="" alt="Pelicula">
+            </figure>
+            <figure class="pelicula-card--containerImg">
+                <img class="img-pelicula" src="" alt="Pelicula">
+            </figure>
+            <figure class="pelicula-card--containerImg">
+                <img class="img-pelicula" src="" alt="Pelicula">
+            </figure>
+            <figure class="pelicula-card--containerImg">
+                <img class="img-pelicula" src="" alt="Pelicula">
+            </figure> -->
+            
+        </article>
+    </section> 
+
+    <section class="section-peliculas recomendados nodo">
+        <h2 class="section-peliculas--title">RECOMENDADOS</h2>
+        <article class="peliculas-card">
+            
+        </article>
+    </section> 
+
+    <!-- VISTA DETAILS -->
+    <div class="line-details"></div>
+    <img class="arrow" src="./src/assets/icons/icons8-izquierda-en-círculo-2-48.png" alt="">
+    <article class="details nodo">
+        <figure><img class="img-details" ></figure>
+
+        <div class="div-description--detailsContainer">
+            <div class="div-description--details">
+                <h2 class="movie-title">Title</h3>
     
+                <span class="year">2022</span> <span class="lenguage">Lenguage</span>
+                <ul class="list-genres--details">
+                    <!-- <li>
+                        genero 1
+                    </li>
+                    <li>
+                        genero 2
+                    </li> -->
+
+                </ul>
+                <p class="movie-details">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur fuga neque animi ratione rerum amet soluta voluptatibus quidem maxime fugiat, nam repellendus. Neque sequi odit vero esse, quis placeat quia!</p>
+
+            </div>
+            <div class="container-range">
+                <span style="color: gold;">
+                    ★
+                </span>
+                <span class="range">
+                    6.8
+                </span>
+            </div>
+        </div>
+
+
+
+    </article>
+
+    <section class="section-peliculas nodo titulosSimilares">
+        <h2 class="section-peliculas--title">Titulos similares</h2>
+        <article class="peliculas-card">
+            <!-- <figure class="pelicula-card--containerImg">
+                <img class="img-pelicula" src="" alt="Pelicula">
+            </figure>
+            <figure class="pelicula-card--containerImg">
+                <img class="img-pelicula" src="" alt="Pelicula">
+            </figure>
+            <figure class="pelicula-card--containerImg">
+                <img class="img-pelicula" src="" alt="Pelicula">
+            </figure>
+            <figure class="pelicula-card--containerImg">
+                <img class="img-pelicula" src="" alt="Pelicula">
+            </figure> -->
+        </article>
+    </section> 
+
+    <!-- FIN VISTA DETAILS -->
+
+    <article class="result">
+
+        <h3 class="result-title"></h3>
+        <div class="result-movies">
+
+        </div>
+
+    </article>
+
+    <footer><span>Creado con 🧡 por magali__acevedo</span></footer>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./src/vars.js"></script>
+    <script src="./src/nodos.js"></script>
+    <script src="./src/main.js"></script>
+
+    <script src="./src/navigate.js"></script>
+
 </body>
 </html>
