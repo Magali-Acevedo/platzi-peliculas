@@ -430,15 +430,12 @@ footer {
 .arrow {
     position: absolute;
     cursor: pointer;
+    margin-top: 10px;
     left: 10px;
-    background: white;
     border-radius: 50%;
     width: 40px;
+    transform: rotate(90deg);
 }
-.arrow:hover {
-    transform: scale(0.9);
-}
-
 .details {
     width: 100%;
     min-height: 80vh;

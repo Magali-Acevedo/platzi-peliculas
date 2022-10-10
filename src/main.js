@@ -114,7 +114,7 @@ function renderGenres(genres, container){
   });
 }
 /* Menu desplegable */
-/*const menuControlador = document.querySelector(".menu-controlador");
+/*noconst menuControlador = document.querySelector(".menu-controlador");
 const menuDesplegable = document.querySelector(".nav-menu");
 
 menuControlador.addEventListener("click", menuToggle);
