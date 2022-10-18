@@ -8,40 +8,60 @@ const api = axios.create({
     api_key: "2e881487d806686e974db193b2379e05",
   },
 });
+//lazy loader
+
+const lazyLoader = new IntersectionObserver((entries) => {
+  entries.forEach((movie) => {
+    console.log(movie.isIntersecting);
+    if (movie.isIntersecting) {
+      const url = movie.target.getAttribute("img-src");
+      movie.target.setAttribute("src", url);
+    }
+  });
+});
 
 //funciones repetidas
 //render peliculas
-function renderMovies(movies, container) {
+function renderMovies(movies, container, lazyLoad = false) {
   container.innerText = "";
   movies.forEach((movie) => {
     //CREAMOS LAS TARJETAS CON LOS POSTERS EN TENDENCIA
-    if (movie.poster_path !== null){
-      const imgMovie = document.createElement("img");
-      imgMovie.classList.add("img-pelicula");
+
+    const imgMovie = document.createElement("img");
+    imgMovie.classList.add("img-pelicula");
+
+    if (movie.poster_path !== null) {
       imgMovie.setAttribute(
-        "src",
+        lazyLoad ? "img-src" : "src",
         "https://image.tmdb.org/t/p/w300/" + movie.poster_path
       );
+    } else {
       imgMovie.setAttribute(
-        "alt",
-        "Imagen de la pelicula " + movie.original_title
+        lazyLoad ? "img-src" : "src",
+        "https://www.publicdomainpictures.net/pictures/280000/nahled/not-found-image-15383864787lu.jpg"
       );
-  
-      const imgFigure = document.createElement("figure");
-      imgFigure.classList.add("pelicula-card--containerImg");
-      imgFigure.addEventListener("click" , ()=>{
-        location.hash="#movie=" + movie.id;
-      });
-      imgFigure.appendChild(imgMovie);
-  
-      container.appendChild(imgFigure);      
     }
 
+    if (lazyLoad) {
+      lazyLoader.observe(imgMovie);
+    }
 
+    imgMovie.setAttribute(
+      "alt",
+      "Imagen de la pelicula " + movie.original_title
+    );
+
+    const imgFigure = document.createElement("figure");
+    imgFigure.classList.add("pelicula-card--containerImg");
+    imgFigure.addEventListener("click", () => {
+      location.hash = "#movie=" + movie.id;
+    });
+    imgFigure.appendChild(imgMovie);
+    container.appendChild(imgFigure);
   });
 }
 //slide render slideContainerImg
-function renderMoviesSlide(movies, container) {
+function renderMoviesSlide(movies, container, lazyLoad = false) {
   movies.forEach((movie) => {
     //USAMOS LAS IMG DE TENDENCIA PARA EL SLIDE
 
@@ -52,9 +72,13 @@ function renderMoviesSlide(movies, container) {
     //img del slade va dentro de item slide
     const imgSlide = document.createElement("img");
     imgSlide.setAttribute(
-      "src",
+      lazyLoad ? "img-src" : "src",
       "https://image.tmdb.org/t/p/w780/" + movie.poster_path
     );
+
+    if (lazyLoad) {
+      lazyLoader.observe(imgSlide);
+    }
 
     //Contenedor de dos div descripcion y btn
     const divContainerDescription = document.createElement("div");
@@ -77,7 +101,7 @@ function renderMoviesSlide(movies, container) {
     btnSlide.classList.add("btn-ver");
     btnSlide.innerText = "VER";
     btnSlide.addEventListener("click", () => {
-      location.hash ="#movie=" + movie.id;
+      location.hash = "#movie=" + movie.id;
     });
 
     divContainerBtn.appendChild(btnSlide);
@@ -96,7 +120,7 @@ function renderMoviesSlide(movies, container) {
 }
 
 //Render por categoria
-function renderGenres(genres, container){
+function renderGenres(genres, container) {
   container.innerText = "";
   genres.forEach((genre) => {
     //lista items
@@ -140,7 +164,7 @@ async function getTrendingMoviesPreview() {
   //const res=
   const { data } = await api("trending/movie/day");
   const movies = data.results;
-  console.log(movies)
+  console.log(movies);
 
   /* SLIDER paginacion imgenes pequeñas */
   const slideOne = document.querySelector(".img-slide--one");
@@ -161,23 +185,23 @@ async function getTrendingMoviesPreview() {
   );
 
   //seccion tendencias slide
-  renderMoviesSlide(movies, slideContainerImg);
+  renderMoviesSlide(movies, slideContainerImg, true);
   //CREAMOS LAS TARJETAS CON LOS POSTERS EN TENDENCIA
-  renderMovies(movies, articleMoviesTrending);
+  renderMovies(movies, articleMoviesTrending, true);
 }
 /*Lista de generos dispinibles */
 async function getGenrePreview() {
   const { data } = await api("genre/movie/list");
   const genres = data.genres;
- 
-  renderGenres(genres,ulGenresContainer);
+
+  renderGenres(genres, ulGenresContainer);
 }
 /*Lista de peliculas discovery*/
 async function getListMovie() {
   const { data } = await api("discover/movie");
   const moviesList = data.results;
 
-  renderMovies(moviesList, moviesRecomendadosList);
+  renderMovies(moviesList, moviesRecomendadosList, true);
 }
 /*Peliculas por categoria */
 async function getMovieByCategory(id) {
@@ -187,25 +211,28 @@ async function getMovieByCategory(id) {
     },
   });
   const viewGenres = data.results;
-  renderMovies(viewGenres, articleMoviesList)}
+  renderMovies(viewGenres, articleMoviesList, true);
+}
 
- /*Peliculas resultados buscador*/
- async function getSearchMovie(keyword) {
+/*Peliculas resultados buscador*/
+async function getSearchMovie(keyword) {
   const { data } = await api("search/movie", {
     params: {
       query: keyword,
     },
   });
   const viewGenres = data.results;
-  renderMovies(viewGenres, articleMoviesList)}
+  renderMovies(viewGenres, articleMoviesList, true);
+}
 
 //Detalle de las peliculas
 async function getMovieDetails(id) {
   const { data: movie } = await api("movie/" + id);
-  
-  const movieImgUrl = 'https://image.tmdb.org/t/p/w500' + movie.poster_path;
+  let movieImgUrl = "";
 
-  const titleMovie= document.querySelector(".movie-title");
+  movie.poster_path !==null ?  movieImgUrl = "https://image.tmdb.org/t/p/w500" + movie.poster_path : movieImgUrl = "https://www.publicdomainpictures.net/pictures/280000/nahled/not-found-image-15383864787lu.jpg";
+
+  const titleMovie = document.querySelector(".movie-title");
   titleMovie.innerText = movie.title;
 
   details.style.background = `
@@ -219,30 +246,26 @@ async function getMovieDetails(id) {
   /*imgDetails.src= 'https://image.tmdb.org/t/p/w500' + movie.poster_path;
   console.log(details)
   imgDetails.setAttribute("alt", movie.title);*/
-  const yearMovie= document.querySelector(".year");
-  yearMovie.innerText = movie.release_date.substring(0,4);
+  const yearMovie = document.querySelector(".year");
+  yearMovie.innerText = movie.release_date.substring(0, 4);
 
-  const lenguageMovie= document.querySelector(".lenguage");
+  const lenguageMovie = document.querySelector(".lenguage");
   lenguageMovie.innerText = movie.original_language;
-
 
   const movieDetails = document.querySelector(".movie-details");
   movieDetails.innerText = movie.overview;
 
   const range = document.querySelector(".range");
-  range.innerText=movie.vote_average;
-  renderGenres(movie.genres,ulGenresContainerDetails);
+  range.innerText = movie.vote_average;
+  renderGenres(movie.genres, ulGenresContainerDetails);
 
   getmoviesRelated(id);
-
-
 }
 //peliculas relacionadas
 async function getmoviesRelated(id) {
   const { data } = await api(`movie/${id}/recommendations`);
-  
+
   const relatesMovies = data.results;
 
-  renderMovies(relatesMovies,  articleMoviesListRelated);
-
+  renderMovies(relatesMovies, articleMoviesListRelated, true);
 }
