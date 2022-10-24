@@ -47,7 +47,7 @@ function navigator() {
 
 
 function searchPage (){
-    console.log('search!!');
+   // console.log('search!!');
 
     header.classList.remove("inactivo");
     slide.classList.add("inactivo");
@@ -71,7 +71,7 @@ function searchPage (){
 
 }
 function detailsPage (){
-    console.log('movie!!');
+    //console.log('movie!!');
     header.classList.add("inactivo");
     slide.classList.add("inactivo");
     genres.classList.add("inactivo");
@@ -89,7 +89,7 @@ function detailsPage (){
     getMovieDetails(idMovie);
 }
 function categoryPage(){
-    console.log('category!!');
+   // console.log('category!!');
     header.classList.remove("inactivo");
     slide.classList.add("inactivo");
     genres.classList.add("inactivo");

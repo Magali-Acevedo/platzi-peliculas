@@ -51,10 +51,10 @@ function favouriteMovie(movie) {
 
   if (likedMovies[movie.id]) {
     likedMovies[movie.id] = undefined;
-    console.log("ya existe se elimino");
+   // console.log("ya existe se elimino");
   } else {
     likedMovies[movie.id] = movie;
-    console.log("se agrego");
+    //console.log("se agrego");
   }
 
   localStorage.setItem("liked_movies", JSON.stringify(likedMovies));
@@ -282,7 +282,7 @@ async function getMovieByCategory(id) {
     },
   });
   const viewGenres = data.results;
-  console.log(data)
+  //console.log(data)
   
   renderMovies(viewGenres, articleMoviesList, {
     lazyLoad: true,
