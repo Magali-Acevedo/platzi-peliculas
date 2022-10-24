@@ -2,6 +2,13 @@ const header = document.querySelector(".header");
 const btnSearch = document.querySelector(".btn-search");
 const inputSearch =document.querySelector(".input-search");
 
+const lenguageList = document.querySelector(".lenguage-list");
+const lenguageES = document.querySelector(".leng-es");
+const lenguageEN = document.querySelector(".leng-en");
+
+const navList = document.querySelector(".nav-list");
+
+
 const slideContainerImg = document.querySelector(".slide");
 const slide = document.querySelector(".container-all");
 
@@ -29,3 +36,6 @@ const resultCategory = document.querySelector(".result");
 const resultTitle =document.querySelector(".result-title");
 
 const articleMoviesListRelated = document.querySelector(".titulosSimilares .peliculas-card");
+
+const favouritesSeccion = document.querySelector(".favourites");
+const articleFavouritesSeccion = document.querySelector(".favourites .peliculas-card");

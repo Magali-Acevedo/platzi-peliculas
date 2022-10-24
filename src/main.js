@@ -1,18 +1,70 @@
-//Usando axios
+let leng;
+//lenguage
+/*
+lenguageES.addEventListener("click", ()=> {
+
+ leng = "es";
+ getfavouritesMovies();
+ getTrendingMoviesPreview();
+ getGenrePreview();
+ getListMovie();
+ console.log(leng)
+ 
+});
+lenguageEN.addEventListener("click", ()=> {
+ leng = "en";
+ getfavouritesMovies();
+ getTrendingMoviesPreview();
+ getGenrePreview();
+ getListMovie();
+
+})
+*/
+
+//DATOS
 const api = axios.create({
   baseURL: "https://api.themoviedb.org/3/",
   headers: {
     "Content-Type": "application/json;charset=utf-8",
   },
   params: {
-    api_key: "2e881487d806686e974db193b2379e05",
+    api_key: API_KEY,
+    language: leng,
+
   },
 });
+
+function favouritesMoviesList() {
+  const item = JSON.parse(localStorage.getItem("liked_movies"));
+  let movies;
+
+  if(item) {
+    movies = item;
+  } else {
+    movies = {};
+  }
+  return movies;
+}
+
+function favouriteMovie(movie) {
+  const likedMovies = favouritesMoviesList();
+
+  if (likedMovies[movie.id]) {
+    likedMovies[movie.id] = undefined;
+    console.log("ya existe se elimino");
+  } else {
+    likedMovies[movie.id] = movie;
+    console.log("se agrego");
+  }
+
+  localStorage.setItem("liked_movies", JSON.stringify(likedMovies));
+
+} 
 //lazy loader
 
 const lazyLoader = new IntersectionObserver((entries) => {
   entries.forEach((movie) => {
-    console.log(movie.isIntersecting);
+    
     if (movie.isIntersecting) {
       const url = movie.target.getAttribute("img-src");
       movie.target.setAttribute("src", url);
@@ -22,8 +74,15 @@ const lazyLoader = new IntersectionObserver((entries) => {
 
 //funciones repetidas
 //render peliculas
-function renderMovies(movies, container, lazyLoad = false) {
-  container.innerText = "";
+function renderMovies(
+  movies,
+  container,
+  { lazyLoad = false, clean = true } = {}
+) {
+  if (clean) {
+    container.innerText = "";
+  }
+
   movies.forEach((movie) => {
     //CREAMOS LAS TARJETAS CON LOS POSTERS EN TENDENCIA
 
@@ -53,10 +112,21 @@ function renderMovies(movies, container, lazyLoad = false) {
 
     const imgFigure = document.createElement("figure");
     imgFigure.classList.add("pelicula-card--containerImg");
-    imgFigure.addEventListener("click", () => {
+    const btnMovie = document.createElement("button");
+    btnMovie.classList.add("btn-movie");
+
+    favouritesMoviesList()[movie.id] && btnMovie.classList.add("btn-movie--liked");
+    btnMovie.addEventListener("click", ()=> {
+      btnMovie.classList.toggle("btn-movie--liked");
+      favouriteMovie(movie);
+      getfavouritesMovies();
+
+    })
+    imgMovie.addEventListener("click", () => {
       location.hash = "#movie=" + movie.id;
     });
     imgFigure.appendChild(imgMovie);
+    imgFigure.appendChild(btnMovie);
     container.appendChild(imgFigure);
   });
 }
@@ -138,10 +208,10 @@ function renderGenres(genres, container) {
   });
 }
 /* Menu desplegable */
-/*noconst menuControlador = document.querySelector(".menu-controlador");
+const menuControlador = document.querySelector(".menu-controlador");
 const menuDesplegable = document.querySelector(".nav-menu");
 
-menuControlador.addEventListener("click", menuToggle);
+//menuControlador.addEventListener("click", menuToggle);
 
 function menuToggle() {
   const isOpenMenuDesplegable = menuDesplegable.classList.contains("inactivo");
@@ -152,7 +222,7 @@ function menuToggle() {
     menuDesplegable.classList.remove("inactivo");
   }
 }
-*/
+
 /*Llamado de peliculas tendencia del dia*/
 
 async function getTrendingMoviesPreview() {
@@ -208,10 +278,16 @@ async function getMovieByCategory(id) {
   const { data } = await api("discover/movie", {
     params: {
       with_genres: id,
+      
     },
   });
   const viewGenres = data.results;
-  renderMovies(viewGenres, articleMoviesList, true);
+  console.log(data)
+  
+  renderMovies(viewGenres, articleMoviesList, {
+    lazyLoad: true,
+    clean: true,
+  });
 }
 
 /*Peliculas resultados buscador*/
@@ -219,9 +295,11 @@ async function getSearchMovie(keyword) {
   const { data } = await api("search/movie", {
     params: {
       query: keyword,
+     
     },
   });
   const viewGenres = data.results;
+  maxPage=data.total_pages;
   renderMovies(viewGenres, articleMoviesList, true);
 }
 
@@ -230,7 +308,10 @@ async function getMovieDetails(id) {
   const { data: movie } = await api("movie/" + id);
   let movieImgUrl = "";
 
-  movie.poster_path !==null ?  movieImgUrl = "https://image.tmdb.org/t/p/w500" + movie.poster_path : movieImgUrl = "https://www.publicdomainpictures.net/pictures/280000/nahled/not-found-image-15383864787lu.jpg";
+  movie.poster_path !== null
+    ? (movieImgUrl = "https://image.tmdb.org/t/p/w500" + movie.poster_path)
+    : (movieImgUrl =
+        "https://www.publicdomainpictures.net/pictures/280000/nahled/not-found-image-15383864787lu.jpg");
 
   const titleMovie = document.querySelector(".movie-title");
   titleMovie.innerText = movie.title;
@@ -269,3 +350,38 @@ async function getmoviesRelated(id) {
 
   renderMovies(relatesMovies, articleMoviesListRelated, true);
 }
+//favoritos
+
+function getfavouritesMovies() {
+  const favouritesMovies = favouritesMoviesList();
+  const arrayMovies= Object.values(favouritesMovies);
+
+  renderMovies(arrayMovies,articleFavouritesSeccion,{ lazyLoad:true, clean:true} )
+}
+//scroll infinito
+
+async function getPaginatedMovies(keyword) {
+  const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+
+  const pageIsNotMax = page < maxPage;
+  const isScrollBottom = scrollTop + clientHeight >= scrollHeight - 10;
+
+  if (isScrollBottom && pageIsNotMax) {
+    page++;
+    const { data } = await api("search/movie", {
+      params: {
+        query: keyword,
+        page,
+        
+      },
+    });
+    const movies = data.results;
+    //ver que elijo
+    
+    renderMovies(movies, articleMoviesList, {
+      lazyLoad: true,
+      clean: false,
+    });
+  }
+}
+

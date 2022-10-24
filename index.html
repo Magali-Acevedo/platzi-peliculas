@@ -24,21 +24,25 @@
                 <button class="btn-search">Go!</button>
             </form>
 
-            <!-- <ul class="nav-list">
-                <li><a href="#home">HOME</a></li>
-                <li class="menu-controlador">MI CUENTA ▼</li>
-            </ul> -->
+            <!-- <select class="nav-list">
+                // <li><a href="#home">HOME</a></li> 
+               //<li class="menu-controlador">Idioma ▽</li>
+                <div class="nav-menu inactivo">
+                    <ul class="lenguage-list">
+                        <li class="leng-es">Español</li>
+                        <li  class="leng-en">Inglés</li>
+                    </ul>
+        
+                </div>  
+                
+                <option value="es">español</option>
+                <option value="en">ingles</option>
+
+            </select>  -->
 
         </nav>
-        <!-- <div class="nav-menu inactivo">
-            <ul>
-                <li><a href="">Mis favoritos</a></li>
-            </ul>
-            <ul>
-                <li><a href="">Cerrar sesión</a></li>
-            </ul>
+        
 
-        </div> -->
     </header>
 
     <section class="container-all nodo container-all--loader">
@@ -195,6 +199,16 @@
 
         </article>
     </section> 
+    <section class="section-peliculas nodo favourites">
+        <h2 class="section-peliculas--title">FAVORITOS ♥</h2>
+        <article class="peliculas-card">
+            <div class="pelicula-card--containerImg pelicula-card--loader"></div>
+            <div class="pelicula-card--containerImg pelicula-card--loader"></div>
+            <div class="pelicula-card--containerImg pelicula-card--loader"></div>
+            <div class="pelicula-card--containerImg pelicula-card--loader"></div>
+
+        </article>
+    </section> 
 
     <!-- FIN VISTA DETAILS -->
 
@@ -212,6 +226,8 @@
     </article>
 
     <footer><span>Creado con 🧡 por magali__acevedo</span></footer>
+
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./src/vars.js"></script>
     <script src="./src/nodos.js"></script>

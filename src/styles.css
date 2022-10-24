@@ -117,32 +117,28 @@ header {
 
 
 .nav-menu {
-    width: 200px;
+    width: 80px;
     height: 120px;
     border-radius: 0 0 8px 8px;
     background-color: var(--gray-claro);
     z-index: 2;
     position: absolute;
-    right: 0;
+    top: 60px;
   
    
 }
 .nav-menu li {
     height: 60px;
     padding: 20px 15px;
-  
-  
-}
-.nav-menu li a {
     color: var(--white);
-}
-.nav-menu li a:hover {
-    color: var(--primary-color);
+  
 }
 
 .nav-menu li:hover {
     background-color: var(--secundary-color);
+    color: var(--primary-color);
     border-radius: 0 0 8px 8px;
+    cursor: pointer;
 }
 /*SLIDER*/
 .container-all--loader {
@@ -221,6 +217,7 @@ header {
     flex-grow: 0;
     width: 100%;
     height: 80vh;
+    background: url("https://us.123rf.com/450wm/naropano/naropano1606/naropano160600509/58727522-textura-de-fondo-oscuro-en-blanco-para-el-dise%C3%B1o-bordes-oscuros.jpg");
 }
 .item-slide:before {
     content: "";
@@ -406,6 +403,7 @@ body::-webkit-scrollbar-thumb {
     display: inline-block;
     opacity: 0.8;
     cursor: pointer;
+    position: relative;
 }
 
 .pelicula-card--containerImg:hover {
@@ -419,17 +417,38 @@ body::-webkit-scrollbar-thumb {
     border-radius: 8px;
     object-fit: cover;
 }
+.btn-movie{
+    width: 25px;
+    height: 25px;
+    background-color: rgba(85, 83, 86, 0.252);
+    border-radius: 50%;
+    border: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+.btn-movie:hover {
+    transform: scale(1.1);
+}
+
+.btn-movie:before {
+    content: "🖤";
+}
+
+.btn-movie--liked {
+    background-color: rgba(85, 83, 86, 0.751) ;
+    box-shadow: 0px 0px 12px 2px var(--secundary-color);
+}
+.btn-movie--liked:before {
+    content: "🧡";
+}
 
 .section-peliculas--title {
     margin-left: 20px;
 }
 
-footer {
-    height: 20px;
-    text-align: center;
-    font-size: 14px;
-    color: gray;
-}
+
 /*details*/
 .img-details {
     width: 100%;
@@ -561,6 +580,12 @@ footer {
     font-size: 24px;
     text-transform: uppercase;
 }
+footer {
+    height: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: gray;
+}
 /* Animations */
 @keyframes autoplay{
     33%{
@@ -585,7 +610,7 @@ footer {
     }
   }
 
-@media(max-width: 600px) {
+@media(max-width: 680px) {
     .nav {
         padding: 0;
         align-items: center;
@@ -602,6 +627,9 @@ footer {
     }
     .item-slide{
         min-height: 50vh;
+    }
+    .nav-menu {
+        top: 150px;
     }
 
 }
