@@ -586,6 +586,12 @@ footer {
     font-size: 14px;
     color: gray;
 }
+
+.notFav {
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
 /* Animations */
 @keyframes autoplay{
     33%{

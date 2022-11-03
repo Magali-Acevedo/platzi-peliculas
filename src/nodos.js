@@ -39,3 +39,5 @@ const articleMoviesListRelated = document.querySelector(".titulosSimilares .peli
 
 const favouritesSeccion = document.querySelector(".favourites");
 const articleFavouritesSeccion = document.querySelector(".favourites .peliculas-card");
+const favouritesTitle =document.queryCommandValue(".section-peliculas--title");
+const notFav =document.querySelector(".notFav");

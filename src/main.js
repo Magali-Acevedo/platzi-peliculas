@@ -46,7 +46,10 @@ function favouritesMoviesList() {
   return movies;
 }
 
+
 function favouriteMovie(movie) {
+  
+
   const likedMovies = favouritesMoviesList();
 
   if (likedMovies[movie.id]) {
@@ -60,6 +63,7 @@ function favouriteMovie(movie) {
   localStorage.setItem("liked_movies", JSON.stringify(likedMovies));
 
 } 
+
 //lazy loader
 
 const lazyLoader = new IntersectionObserver((entries) => {
@@ -234,7 +238,7 @@ async function getTrendingMoviesPreview() {
   //const res=
   const { data } = await api("trending/movie/day");
   const movies = data.results;
-  console.log(movies);
+  
 
   /* SLIDER paginacion imgenes pequeñas */
   const slideOne = document.querySelector(".img-slide--one");
@@ -355,6 +359,15 @@ async function getmoviesRelated(id) {
 function getfavouritesMovies() {
   const favouritesMovies = favouritesMoviesList();
   const arrayMovies= Object.values(favouritesMovies);
+ // console.log("prueba")
+  //console.log(arrayMovies);
+
+  if(arrayMovies.length===0 ){
+    notFav.classList.remove("inactivo");
+    notFav.innerText="No hay peliculas en Favoritos"
+  } else {
+    notFav.classList.add("inactivo");
+  }
 
   renderMovies(arrayMovies,articleFavouritesSeccion,{ lazyLoad:true, clean:true} )
 }

@@ -123,6 +123,7 @@ function homePage (){
     favouritesSeccion.classList.remove("inactivo");
     resultCategory.classList.add("inactivo");
 
+    
     getfavouritesMovies();
     getTrendingMoviesPreview();
     getGenrePreview();
